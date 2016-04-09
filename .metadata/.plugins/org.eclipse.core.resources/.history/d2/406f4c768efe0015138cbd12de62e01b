@@ -19,7 +19,10 @@ import processing.core.PApplet;
 import java.util.Map;
 import java.util.LinkedHashMap;
 
-public class DrawingWindow extends ProcessingWindow {
+public class DrawingWindow extends PApplet {
+	private int width;
+	private int height;
+	private String title;
 	private Map<String, Double> parameters;	
 	private int menuWidth;
 	private int menuHeight;
@@ -39,7 +42,9 @@ public class DrawingWindow extends ProcessingWindow {
 	*/
 	public DrawingWindow(int width, int height, String title, Map<String, Double> parameters,
 						int menuWidth, int menuHeight) {
-		super(width, height, title);
+		this.width = width;
+		this.height = height;
+		this.title = title;
 		this.parameters = parameters;
 		this.menuWidth = menuWidth;
 		this.menuHeight = menuHeight;
@@ -94,10 +99,9 @@ public class DrawingWindow extends ProcessingWindow {
 	/**
 	 * Creates the DrawingWindow as well as its accompanying MenuWindow. 
 	 */
-	@Override
 	public void createWindow() {
-		super.createWindow();
-		menu.createWindow();
+		String[] title = {this.title};
+		PApplet.runSketch(title, this);
 	}
 	
 	/*
@@ -109,10 +113,13 @@ public class DrawingWindow extends ProcessingWindow {
 		menu = new MenuWindow(menuWidth, menuHeight, "Menu for " + title, parameters);
 	}
 	
-	///////////////////////////////////////////////////////////////////////////////////////
-	/* Below are methods that customize the DrawingWindow's appearance and functionality */
-	///////////////////////////////////////////////////////////////////////////////////////
 	
+	/*
+	 * Initialize the window size
+	 */
+	public void settings() {
+		size(width, height);	
+	}
 	/*
 	 * Initialize the window
 	 */

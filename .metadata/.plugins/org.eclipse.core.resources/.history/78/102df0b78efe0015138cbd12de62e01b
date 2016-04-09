@@ -15,11 +15,12 @@ import processing.core.PApplet;
 import java.util.Map;
 import java.util.LinkedHashMap;
 
-public class MenuWindow extends ProcessingWindow {
+public class MenuWindow {
 	private int width;
 	private int height;
 	private String title;
 	private Map<String, Double> parameters;
+	private boolean autoUpdate;
 	
 	/**
 	 * Base constructor for a MenuWindow. Takes in a width and height for the window dimenstions,
@@ -31,7 +32,9 @@ public class MenuWindow extends ProcessingWindow {
 	 * @param parameters
 	 */
 	 public MenuWindow(int width, int height, String title, Map<String, Double> parameters) {
-		super(width, height, title);
+		this.width = width;
+		this.height = height;
+		this.title = title;
 		this.parameters = parameters;
 	 }
 	 

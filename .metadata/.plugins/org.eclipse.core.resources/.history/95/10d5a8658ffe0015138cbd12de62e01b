@@ -109,10 +109,7 @@ public class DrawingWindow extends ProcessingWindow {
 		menu = new MenuWindow(menuWidth, menuHeight, "Menu for " + title, parameters);
 	}
 	
-	///////////////////////////////////////////////////////////////////////////////////////
-	/* Below are methods that customize the DrawingWindow's appearance and functionality */
-	///////////////////////////////////////////////////////////////////////////////////////
-	
+
 	/*
 	 * Initialize the window
 	 */

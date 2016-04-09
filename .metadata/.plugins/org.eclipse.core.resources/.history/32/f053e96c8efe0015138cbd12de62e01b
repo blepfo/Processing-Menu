@@ -1,0 +1,17 @@
+package menu_package;
+
+import processing.core.PApplet;
+
+abstract class ProcessingWindow extends PApplet {
+	public final int width;
+	public final int height;
+	public final String title;
+	
+	public ProcessingWindow(int width, int height, String title) {
+		this.width = width;
+		this.height = height;
+		this.title = title;
+	}
+	
+	
+}

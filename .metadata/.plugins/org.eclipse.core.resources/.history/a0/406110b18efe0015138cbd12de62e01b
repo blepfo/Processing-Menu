@@ -94,9 +94,9 @@ public class DrawingWindow extends ProcessingWindow {
 	/**
 	 * Creates the DrawingWindow as well as its accompanying MenuWindow. 
 	 */
-	@Override
 	public void createWindow() {
-		super.createWindow();
+		String[] title = {this.title};
+		PApplet.runSketch(title, this);
 		menu.createWindow();
 	}
 	
@@ -109,10 +109,13 @@ public class DrawingWindow extends ProcessingWindow {
 		menu = new MenuWindow(menuWidth, menuHeight, "Menu for " + title, parameters);
 	}
 	
-	///////////////////////////////////////////////////////////////////////////////////////
-	/* Below are methods that customize the DrawingWindow's appearance and functionality */
-	///////////////////////////////////////////////////////////////////////////////////////
 	
+	/*
+	 * Initialize the window size
+	 */
+	public void settings() {
+		size(width, height);	
+	}
 	/*
 	 * Initialize the window
 	 */
