@@ -1,10 +1,18 @@
 package menu_package;
 
-import processing.core.PApplet;
-
-public class driver {
+public class Driver {
+	
+	static java.util.LinkedHashMap<String, Double> parameters = new java.util.LinkedHashMap<String, Double>();
+	
 	public static void main(String[] args) {
-		DrawingWindow window = new DrawingWindow(1000, 1000);
+		// Initialize Parameters
+		parameters.put("Center X", 250.0);
+		parameters.put("Center Y", 250.0);
+		parameters.put("Radius", 100.0);
+		
+		DrawingWindow window = new DrawingWindow(500, 500, parameters);
 		window.createWindow();
+		
 	}
+	
 }

@@ -70,6 +70,17 @@ public class DrawingWindow extends ProcessingWindow {
 	}
 	
 	/**
+	 * Constructor for DrawingWindow for window dimensions and a map
+	 * containing parameters
+	 * @param width
+	 * @param height
+	 * @param parameters
+	 */
+	public DrawingWindow(int width, int height, Map<String, Double> parameters) {
+		this(width, height, DEFAULT_TITLE, parameters, width, height);
+	}
+	
+	/**
 	 * Most basic Constructor for DrawingWindow requiring only window dimensions.
 	 * DrawingWindow and MenuWindow will be the same size, and the DrawingWindow
 	 * title will just be "Drawing Window"
@@ -108,11 +119,12 @@ public class DrawingWindow extends ProcessingWindow {
 	private void createMenu(int menuWidth, int menuHeight) {
 		menu = new MenuWindow(menuWidth, menuHeight, "Menu for " + title, parameters);
 	}
-	
+
+
 	///////////////////////////////////////////////////////////////////////////////////////
-	/* Below are methods that customize the DrawingWindow's appearance and functionality */
+	/* Below are methods that customize the DrawingWindow's appearance and functionality.*/
 	///////////////////////////////////////////////////////////////////////////////////////
-	
+
 	/*
 	 * Initialize the window
 	 */
@@ -127,9 +139,12 @@ public class DrawingWindow extends ProcessingWindow {
 	 * whatever the user desires.
 	 */
 	public void draw() {	
-		/* ADD YOUR CODE HERE */
-		
-		
+		//Below is an example to demo the MenuWindow based on the 
+		// parameters set in the ExampleDriver
+		float centerX = parameters.get("Center X").floatValue();
+		float centerY = parameters.get("Center Y").floatValue();
+		float radius = parameters.get("Radius").floatValue();
+		ellipse(centerX, centerY, radius*2, radius*2);
 		
 	}
 

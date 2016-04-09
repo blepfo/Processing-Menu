@@ -1,0 +1,123 @@
+/**
+* DrawingWindow.java 
+* @author AdamAnderson
+*
+* A DrawingWindow is a window used by Processing that is paired with a MenuWindow
+* to allow for easy adjustment of parameters during the execution of a Processing sketch.
+* Parameters are stored in a Map that assigns parameter names to doubles representing their
+* value. The Parameters map is shared by the DrawingWindow and MenuWindow, so the
+* DrawingWindow will update one frame after values are changed in the MenuWindow
+* 
+* To use DrawingWindows in your own creation, simply change the draw() method so the 
+* DrawingWindow will perform whatever actions you desire. The methods 
+* settings(), setup(), and draw() are located at the bottom of the class source file.
+*/
+
+package menu_package;
+
+import processing.core.PApplet;
+import java.util.Map;
+import java.util.LinkedHashMap;
+
+public class DrawingWindow extends ProcessingWindow {
+	private Map<String, Double> parameters;	
+	private int menuWidth;
+	private int menuHeight;
+	private MenuWindow menu;
+	private static final String DEFAULT_TITLE = "Drawing Window";
+
+	/**
+	* Base constructor for a DrawingWindow. Takes in the window width and height as parameters
+	* and sets the size of the DrawingWindow accordingly, as well as a a String title for the
+	* DrawingWindow, a Map of parameters, and the dimensions of the MenuWindow
+	* DrawingWindow.
+	* @param width
+	* @param height
+	* @param title
+	* @param parameters
+	* @param menu
+	*/
+	public DrawingWindow(int width, int height, String title, Map<String, Double> parameters,
+						int menuWidth, int menuHeight) {
+		super(width, height, title);
+		this.parameters = parameters;
+		this.menuWidth = menuWidth;
+		this.menuHeight = menuHeight;
+		createMenu(menuWidth, menuHeight);
+	}
+	
+	/**
+	* Constructor for DrawingWindow where only width, height, title, and menu 
+	* dimensions are given
+	* @param width
+	* @param height
+	* @param title
+	* @param menu
+	*/
+	public DrawingWindow(int width, int height, String title, int menuWidth, int menuHeight) {
+		this(width, height, title, new LinkedHashMap<String, Double>(), menuWidth, menuHeight);
+	}
+	
+	/**
+	 * Constructor for DrawingWindow which only requires width, height, and a title.
+	 * MenuWindow dimensions are set equal to DrawingWindow dimensions
+	 * @param width
+	 * @param height
+	 * @param title
+	 */
+	public DrawingWindow(int width, int height, String title) {
+		this(width, height, title, width, height);
+	}
+	
+	/**
+	 * Constructor for DrawingWindow for window dimensions and a map
+	 * containing parameters
+	 * @param width
+	 * @param height
+	 * @param parameters
+	 */
+	public DrawingWindow(int width, int height, Map<String, Double> parameters) {
+		this(width, height, DEFAULT_TITLE, parameters, width, height);
+	}
+	
+	/**
+	 * Most basic Constructor for DrawingWindow requiring only window dimensions.
+	 * DrawingWindow and MenuWindow will be the same size, and the DrawingWindow
+	 * title will just be "Drawing Window"
+	 * @param width
+	 * @param height
+	 */
+	public DrawingWindow(int width, int height) {
+		this(width, height, DEFAULT_TITLE);
+	}
+	
+	/**
+	 * Adds a parameter to the parameter list with the given name
+	 * and a default value of defaultValue
+	 * @param name
+	 * @param defaultValue
+	 */
+	public void addParameter(String name, double defaultValue) {
+		parameters.put(name, defaultValue);
+		createMenu(menuWidth, menuHeight);
+	}
+	
+	/**
+	 * Creates the DrawingWindow as well as its accompanying MenuWindow. 
+	 */
+	@Override
+	public void createWindow() {
+		super.createWindow();
+		menu.createWindow();
+	}
+	
+	/*
+	 * Helper method creates a MenuWindow object for the parameters stored by
+	 * the DrawingWindow. The input parameters represent the dimensions
+	 * of the menu to be drawn
+	 */
+	private void createMenu(int menuWidth, int menuHeight) {
+		menu = new MenuWindow(menuWidth, menuHeight, "Menu for " + title, parameters);
+	}
+
+}

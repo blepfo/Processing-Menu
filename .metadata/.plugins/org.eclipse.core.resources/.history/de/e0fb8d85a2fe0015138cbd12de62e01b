@@ -1,0 +1,15 @@
+package menu_package;
+
+public class Driver {
+	
+	static java.util.LinkedHashMap<String, Integer> parameters = new java.util.LinkedHashMap<String, Integer>();
+	
+	public static void main(String[] args) {
+		parameters.put("Center X", 500);
+		parameters.put("Center Y", 500);
+		parameters.put("Radius", 250);
+		DrawingWindow window = new DrawingWindow(500, 500, parameters);
+		
+	}
+	
+}
