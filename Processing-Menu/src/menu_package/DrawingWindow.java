@@ -144,6 +144,7 @@ public class DrawingWindow extends ProcessingWindow {
 		float centerX = parameters.get("Center X").floatValue();
 		float centerY = parameters.get("Center Y").floatValue();
 		float radius = parameters.get("Radius").floatValue();
+		background(255);
 		ellipse(centerX, centerY, radius*2, radius*2);
 		
 	}

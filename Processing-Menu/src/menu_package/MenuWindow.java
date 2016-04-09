@@ -18,11 +18,9 @@ import java.util.Set;
 import javax.swing.JOptionPane;
 
 public class MenuWindow extends ProcessingWindow {
-	private int width;
-	private int height;
-	private String title;
 	private Map<String, Double> parameters;
 	private Map<String, Button> updateButtons;
+	private float buttonHeight;
 	
 	/**
 	 * Base constructor for a MenuWindow. Takes in a width and height for the window dimenstions,
@@ -35,8 +33,10 @@ public class MenuWindow extends ProcessingWindow {
 	 */
 	 public MenuWindow(int width, int height, String title, Map<String, Double> parameters) {
 		super(width, height, title);
-		this.parameters = parameters;
 		
+		this.parameters = parameters;
+		updateButtons = new LinkedHashMap<String, Button>();
+		buttonHeight = (float) ((height / (parameters.keySet().size() * 2)) - (height / 10));		
 	 }
 	 
 	 /**
@@ -47,7 +47,7 @@ public class MenuWindow extends ProcessingWindow {
 	 public void mousePressed() {
 		 for (String parameter : updateButtons.keySet()) {
 			 // Check if mouse was over an updateButton when pressed
-			 if (updateButtons.get(parameter).mouseOver()) {
+			 if (updateButtons.get(parameter).mouseOver(pmouseX, pmouseY)) {
 				 System.out.println("Update requested for: " + parameter);
 				 // Prompt user for value to update parameter with
 				 Double newValue;
@@ -72,41 +72,72 @@ public class MenuWindow extends ProcessingWindow {
 	 public void draw() {
 		 Set<String> parameterNames = parameters.keySet();
 		 int numParameters = parameterNames.size();
-		 float horizontalSpacing = (float) ((float) width / (float) numParameters);
-		 float verticalSpacing = (float) ((float) height / (float) numParameters);
-		 float centerX;
+		 float verticalSpacing = ((float) height / (float) (numParameters * 2));
+		 float centerX = (float) (width / 4.0);
+		 float buttonX = (float) ((centerX + width) / 2.0);
 		 float centerY;
+		 int parameterNumber = 1;
 		 // Iterate through each parameter, create an updateButton for the parameter,
 		 // and draw it to the output window
-		 for (String parameter : parameterNames) {
-			 
+		 for (String parameter : parameterNames) {			 
+			 centerY = (parameterNumber * verticalSpacing);
+			 updateButtons.put(parameter,  new Button(buttonX, centerY, buttonHeight));
+			 text(parameter, centerX, centerY);
+			 updateButtons.get(parameter).draw();
+			 centerY += ++parameterNumber * verticalSpacing;
 		 }
+		 noLoop();
 	 }
+	 
+	 
+	 
 	 
 	 public void setup() {
 		 background(255);
 		 fill(0);
 	 }
 
+	 
+	 
+	 
+	 /*
+	  * Inner class representing the updateButtons for the MenuWindow. All
+	  * a button needs to know is its location and dimensions, and it can 
+	  * calculate whether or not the mouse is currently over it.
+	  */
 	 private class Button {
-		 private int centerX;
-		 private int centerY;
-		 private int bWidth;
-		 private int bHeight;
+		 private float centerX;
+		 private float centerY;
+		 private float bWidth;
+		 private float bHeight;
 		 
+		 private Button(float centerX, float centerY, float buttonHeight) {
+			 this.centerX = centerX;
+			 this.centerY = centerY;
+			 this.bWidth = buttonHeight*3;
+			 this.bHeight = buttonHeight*2;
+		 }
+		 /*
+		  * Draws the button to the output window
+		  */
 		 private void draw() {
 			 rectMode(CENTER);
 			 fill(50);
+			 rect(centerX, centerY, bWidth, bHeight);
+			// fill(255);
+			 text("Update", centerX, centerY);
+			 fill(0);
 		 }
 		 
-		 /**
-		  * Returns true 
-		  * @return
+		 /*
+		  * Returns true if the mouse is over the button on the MenuWindow
 		  */
-		 private boolean mouseOver() {
+		 private boolean mouseOver(float mouseX, float mouseY) {
 			 boolean isPressed = false;
+			 float bWidth = this.bWidth / 3;
+			 float bHeight = this.bHeight / 2;
 			 if ((mouseX > centerX - bWidth) && (mouseX < centerX + bWidth) &&
-					 (mouseY > centerY - bHeight) && (mouseY < bHeight + mouseY)) {
+					 (mouseY > centerY - bHeight) && (mouseY < centerY + bHeight)) {
 				 isPressed = true;				 
 			 }
 			 return isPressed;
