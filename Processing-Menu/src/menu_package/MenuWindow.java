@@ -1,0 +1,45 @@
+/**
+ * MenuWindow.java
+ * @author AdamAnderson
+ * 
+ * A MenuWindow is created alongside a DrawingWindow to allow for parameter
+ * tweaking while a Processing Sketch is being run. A MenuWindow displays the 
+ * name and value of all of its parameters and allows the user to change
+ * the values. When a MenuWindow is created without specifying window
+ * dimensions, the menu size scales depending on the number of parameters
+ */
+
+package menu_package;
+
+import processing.core.PApplet;
+import java.util.Map;
+import java.util.LinkedHashMap;
+
+public class MenuWindow {
+	private int width;
+	private int height;
+	private String title;
+	private Map<String, Double> parameters;
+	private boolean autoUpdate;
+	
+	/**
+	 * Base constructor for a MenuWindow. Takes in a width and height for the window dimenstions,
+	 * a String title, and a parameter map relating Strings with the names of the parameters to 
+	 * doubles representing their values.
+	 * @param width
+	 * @param height
+	 * @param title
+	 * @param parameters
+	 */
+	 public MenuWindow(int width, int height, String title, Map<String, Double> parameters) {
+		this.width = width;
+		this.height = height;
+		this.title = title;
+		this.parameters = parameters;
+	 }
+	 
+	 
+
+	
+
+}
