@@ -10,19 +10,17 @@
 * 
 * To use DrawingWindows in your own creation, simply change the draw() method so the 
 * DrawingWindow will perform whatever actions you desire. The methods 
-* settings(), setup(), and draw() are located at the bottom of the class source file.
+* setup(), and draw() are located at the bottom of the class source file.
+* By default, they contain code for relevant to the ExampleDriver, but you can change it
+* to make your own Processing sketches with menus!
 */
 
 package menu_package;
 
-import processing.core.PApplet;
 import java.util.Map;
-import java.util.LinkedHashMap;
 
 public class DrawingWindow extends ProcessingWindow {
 	private Map<String, Double> parameters;	
-	private int menuWidth;
-	private int menuHeight;
 	private MenuWindow menu;
 	private static final String DEFAULT_TITLE = "Drawing Window";
 
@@ -41,8 +39,6 @@ public class DrawingWindow extends ProcessingWindow {
 						int menuWidth, int menuHeight) {
 		super(width, height, title);
 		this.parameters = parameters;
-		this.menuWidth = menuWidth;
-		this.menuHeight = menuHeight;
 		createMenu(menuWidth, menuHeight);
 	}
 	
@@ -54,19 +50,8 @@ public class DrawingWindow extends ProcessingWindow {
 	* @param title
 	* @param menu
 	*/
-	public DrawingWindow(int width, int height, String title, int menuWidth, int menuHeight) {
-		this(width, height, title, new LinkedHashMap<String, Double>(), menuWidth, menuHeight);
-	}
-	
-	/**
-	 * Constructor for DrawingWindow which only requires width, height, and a title.
-	 * MenuWindow dimensions are set equal to DrawingWindow dimensions
-	 * @param width
-	 * @param height
-	 * @param title
-	 */
-	public DrawingWindow(int width, int height, String title) {
-		this(width, height, title, width, height);
+	public DrawingWindow(int width, int height, Map<String, Double> parameters, int menuWidth, int menuHeight) {
+		this(width, height, DEFAULT_TITLE, parameters, menuWidth, menuHeight);
 	}
 	
 	/**
@@ -77,29 +62,7 @@ public class DrawingWindow extends ProcessingWindow {
 	 * @param parameters
 	 */
 	public DrawingWindow(int width, int height, Map<String, Double> parameters) {
-		this(width, height, DEFAULT_TITLE, parameters, width, height);
-	}
-	
-	/**
-	 * Most basic Constructor for DrawingWindow requiring only window dimensions.
-	 * DrawingWindow and MenuWindow will be the same size, and the DrawingWindow
-	 * title will just be "Drawing Window"
-	 * @param width
-	 * @param height
-	 */
-	public DrawingWindow(int width, int height) {
-		this(width, height, DEFAULT_TITLE);
-	}
-	
-	/**
-	 * Adds a parameter to the parameter list with the given name
-	 * and a default value of defaultValue
-	 * @param name
-	 * @param defaultValue
-	 */
-	public void addParameter(String name, double defaultValue) {
-		parameters.put(name, defaultValue);
-		createMenu(menuWidth, menuHeight);
+		this(width, height, parameters, width, height);
 	}
 	
 	/**
@@ -126,7 +89,7 @@ public class DrawingWindow extends ProcessingWindow {
 	///////////////////////////////////////////////////////////////////////////////////////
 
 	/*
-	 * Initialize the window
+	 * Initialize the DrawingWindow the same way we would a normal Processing sketch
 	 */
 	public void setup() {
 		background(255);
@@ -138,9 +101,10 @@ public class DrawingWindow extends ProcessingWindow {
 	 * The draw function should be updated so that the DrawingWindow creates
 	 * whatever the user desires.
 	 */
-	public void draw() {	
+	public void draw() {
+		
 		//Below is an example to demo the MenuWindow based on the 
-		// parameters set in the ExampleDriver
+		// parameters set in the ExampleDriver.
 		float centerX = parameters.get("Center X").floatValue();
 		float centerY = parameters.get("Center Y").floatValue();
 		float radius = parameters.get("Radius").floatValue();

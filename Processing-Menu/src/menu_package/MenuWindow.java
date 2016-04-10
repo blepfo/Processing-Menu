@@ -3,24 +3,23 @@
  * @author AdamAnderson
  * 
  * A MenuWindow is created alongside a DrawingWindow to allow for parameter
- * tweaking while a Processing Sketch is being run. A MenuWindow displays the 
- * name and value of all of its parameters and allows the user to change
- * the values. When a MenuWindow is created without specifying window
- * dimensions, the menu size scales depending on the number of parameters
+ * tweaking while a Processing Sketch is being run. A MenuWindow displays
+ * buttons with the names of all of the parameters specified 
+ * the values.
  */
 
 package menu_package;
 
-import processing.core.PApplet;
+import java.util.Set;
 import java.util.Map;
 import java.util.LinkedHashMap;
-import java.util.Set;
 import javax.swing.JOptionPane;
 
 public class MenuWindow extends ProcessingWindow {
 	private Map<String, Double> parameters;
 	private Map<String, Button> updateButtons;
 	private float buttonHeight;
+	private static final int TEXT_SIZE = 20;
 	
 	/**
 	 * Base constructor for a MenuWindow. Takes in a width and height for the window dimenstions,
@@ -36,7 +35,7 @@ public class MenuWindow extends ProcessingWindow {
 		
 		this.parameters = parameters;
 		updateButtons = new LinkedHashMap<String, Button>();
-		buttonHeight = (float) ((height / (parameters.keySet().size() * 2)) - (height / 10));		
+		buttonHeight = (float) ((height / (parameters.keySet().size() * 2)) - (height / 8));		
 	 }
 	 
 	 /**
@@ -73,32 +72,20 @@ public class MenuWindow extends ProcessingWindow {
 		 Set<String> parameterNames = parameters.keySet();
 		 int numParameters = parameterNames.size();
 		 float verticalSpacing = ((float) height / (float) (numParameters * 2));
-		 float centerX = (float) (width / 4.0);
-		 float buttonX = (float) ((centerX + width) / 2.0);
+		 float buttonX = (float) (width / 2.0);
 		 float centerY;
 		 int parameterNumber = 1;
 		 // Iterate through each parameter, create an updateButton for the parameter,
 		 // and draw it to the output window
 		 for (String parameter : parameterNames) {			 
 			 centerY = (parameterNumber * verticalSpacing);
-			 updateButtons.put(parameter,  new Button(buttonX, centerY, buttonHeight));
-			 text(parameter, centerX, centerY);
+			 updateButtons.put(parameter,  new Button(parameter, buttonX, centerY, buttonHeight));
 			 updateButtons.get(parameter).draw();
 			 centerY += ++parameterNumber * verticalSpacing;
+			 
 		 }
 		 noLoop();
 	 }
-	 
-	 
-	 
-	 
-	 public void setup() {
-		 background(255);
-		 fill(0);
-	 }
-
-	 
-	 
 	 
 	 /*
 	  * Inner class representing the updateButtons for the MenuWindow. All
@@ -106,16 +93,18 @@ public class MenuWindow extends ProcessingWindow {
 	  * calculate whether or not the mouse is currently over it.
 	  */
 	 private class Button {
+		 private String parameter;
 		 private float centerX;
 		 private float centerY;
 		 private float bWidth;
 		 private float bHeight;
 		 
-		 private Button(float centerX, float centerY, float buttonHeight) {
+		 private Button(String parameter, float centerX, float centerY, float buttonHeight) {
+			 this.parameter = parameter;
 			 this.centerX = centerX;
 			 this.centerY = centerY;
-			 this.bWidth = buttonHeight*3;
-			 this.bHeight = buttonHeight*2;
+			 this.bWidth = buttonHeight*5;
+			 this.bHeight = buttonHeight*3;
 		 }
 		 /*
 		  * Draws the button to the output window
@@ -124,8 +113,9 @@ public class MenuWindow extends ProcessingWindow {
 			 rectMode(CENTER);
 			 fill(50);
 			 rect(centerX, centerY, bWidth, bHeight);
-			// fill(255);
-			 text("Update", centerX, centerY);
+			 fill(255);
+			 textAlign(CENTER);
+			 text(parameter, centerX, centerY - (bHeight / 20));
 			 fill(0);
 		 }
 		 
@@ -144,5 +134,18 @@ public class MenuWindow extends ProcessingWindow {
 		 }
 	 }
 	
+	//////////////////////////////////////////////////////////////////
+	/* Below are methods that customize the MenuWindow's appearance */
+	//////////////////////////////////////////////////////////////////
+	 
+	 
+	 public void setup() {
+		 background(255);
+		 fill(0);
+		 textSize(TEXT_SIZE);
+	 }
+
+	 
+	 
 
 }
