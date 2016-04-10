@@ -1,6 +1,6 @@
 # Processing-Menu
 
-<a href = "https://processing.org/">Processing</a> is a collection of Java libraries that greatly simplifies graphics programming. Processing programs, called sketches, are usually designed with one window. In this repository you will find (in the midst of a great deal of junk from Eclipse) a package containing classes that that allow the easy creation of a menu window for your Processing sketch. The important source code is buried in Processing-Menu/src/menu_package/
+<a href = "https://processing.org/">Processing</a> is a collection of Java libraries that greatly simplifies graphics programming. Processing programs, called sketches, are usually designed with one window. In this repository you will find (in the midst of a great deal of junk from Eclipse) a package containing classes that that allow the easy creation of a menu window for your Processing sketch. The important source code is buried in <a href = "https://github.com/blepfo/Processing-Menu/tree/master/Processing-Menu/src/menu_package">Processing-Menu/src/menu_package/</a>
 <br/>
 <br/>
 You specify which parameters are involved in the drawing that is output on your main output window, which I call a DrawingWindow, and these parameters are added to a MenuWindow. The MenuWindow contains buttons that, when clicked, allow you to enter new values. This makes it easy to tweak values while your sketch is running, allowing you to make more user friendly Processing Sketches that people can interact with without having to edit any source code.
